@@ -3,33 +3,43 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import { CircularProgress } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+import { login } from "../slice/loginSlice";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const LoginHandle = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await axios.post(
-        `http://localhost:8080/api/v1/auth/login`,
-        {
-          email,
-          password,
-        },
-        setLoading(true)
+        import.meta.env.VITE_SERVER_URL + "/auth/login",
+        { email, password }
       );
-      console.log(response.data);
       if (response.data.status) {
+        const logindata = {
+          name: response.data.authData.name,
+          email: response.data.authData.email,
+          jwt: response.data.token,
+          role: response.data.authData.role,
+        };
+        dispatch(login(logindata));
         navigate("/home");
-        localStorage.setItem("token", response.data.token);
+        toast.success("Sucessfully Login");
+        setLoading(false);
       }
     } catch (error) {
-      console.log("Login Failed", error);
+      console.log(error);
       setLoading(false);
+      toast.error(error.response.data.error);
     }
   };
   return (
@@ -40,6 +50,7 @@ const Login = () => {
           style={{ marginTop: "150px" }}
         >
           <Col xs={12} md={6}>
+            <h1 style={{textAlign:'center'}}>Sign In</h1>
             <Form onSubmit={LoginHandle}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
@@ -84,8 +95,10 @@ const Login = () => {
           </Col>
         </Row>
       </Container>
+      <ToastContainer />
     </>
   );
 };
 
 export default Login;
+// MONGO_URI =mongodb+srv://admin:admin@cluster0.msxjsdv.mongodb.net/?retryWrites=true&w=majority
