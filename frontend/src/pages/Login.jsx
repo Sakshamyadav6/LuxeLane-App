@@ -47,7 +47,7 @@ const Login = () => {
       <Container>
         <Row
           className="justify-content-md-center"
-          style={{ marginTop: "150px" }}
+          style={{ marginTop: "90px" }}
         >
           <Col xs={12} md={6}>
             <h1 style={{textAlign:'center'}}>Sign In</h1>
