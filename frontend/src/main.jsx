@@ -9,15 +9,17 @@ import persistor, { store } from "./store/store.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PersistGate } from "redux-persist/integration/react";
-
-
+import {ChakraProvider} from "@chakra-ui/react"
+ 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <ToastContainer />
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <App />
+          <ChakraProvider>
+            <App />
+          </ChakraProvider>
         </PersistGate>
       </Provider>
     </BrowserRouter>

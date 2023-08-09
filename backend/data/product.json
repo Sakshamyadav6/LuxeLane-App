@@ -2,7 +2,7 @@
   {
     "_id": "5d713995b721c3bb38c1f5d0",
     "name": "Arrow Shirts",
-    "productImage": "uploads/product/arrow.png",
+    "productImage": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60",
     "brand": "Arrow Shirts",
     "price": 600,
     "category": "Shirt",
@@ -33,6 +33,16 @@
     "_id": "5d725a1b7b292f5f8ceff788",
     "name": "Wrangler",
     "productImage": "uploads/product/wrangler.jpg",
+    "brand": "Wrangler",
+    "price": 100,
+    "category": "Pants",
+    "countInStock": 1,
+    "description": "Wrangler is often described as a cool jeans brand because of superb fitting and stylish looks. It is designed by integrating both modern trends and vintage fashion. The in-demand jeans brand carries a “W” signature on its back pocket that gives it an individual, original and classy look."
+  },
+  {
+    "_id": "5d725a1b7b292f5f8ceff788",
+    "name": "Wrangler",
+    "productImage": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60",
     "brand": "Wrangler",
     "price": 100,
     "category": "Pants",
