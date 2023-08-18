@@ -6,7 +6,7 @@ import { Col, Image, ListGroup, Row } from "react-bootstrap";
 import Rating from "./Card/Rating";
 import { useDispatch } from "react-redux";
 import Loading from "./Loading";
-// import { addToCart } from "../slice/productSlice";
+import { addToCart } from "../slice/cartSlice";
 
 const ProductDetals = () => {
   const [product, setProduct] = useState({});
@@ -29,8 +29,9 @@ const ProductDetals = () => {
   }, []);
 
   const handleAddToCart = (quantity) => {
-    const data = payloadForCartItem(product.data, quantity);
-
+    
+     const data = payloadForCartItem(product.data, quantity);
+  console.log(data)
     dispatch(addToCart(data));
 
     navigate("/cart");
@@ -49,7 +50,6 @@ const ProductDetals = () => {
 
   return (
     <>
-      
       {product.status === "success" ? (
         <>
           <Row>
@@ -126,7 +126,7 @@ const ProductDetals = () => {
                 )}
                 <ListGroup.Item>
                   <Button
-                    color="primary"
+                    color="secondary"
                     variant="contained"
                     fullWidth
                     onClick={() => handleAddToCart(qty)}
@@ -140,7 +140,7 @@ const ProductDetals = () => {
           </Row>
         </>
       ) : (
-        <Loading/>
+        <Loading />
       )}
     </>
   );
