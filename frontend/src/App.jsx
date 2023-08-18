@@ -8,6 +8,7 @@ import ProductDetail from "./components/ProductDetail";
 import Cart from "./pages/Cart";
 import Shipping from "./pages/Shipping";
 import Payment from "./pages/Payment";
+import PlaceOrder from "./pages/PlaceOrder";
   
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
          <Route path="/product/:id" element={<ProductDetail/>} />
          <Route path="/shipping" element={<Shipping/>} />
          <Route path="/payment" element={<Payment/>} />
+         <Route path="/place-order" element={<PlaceOrder/>} />
       </Routes>
     </>
   );

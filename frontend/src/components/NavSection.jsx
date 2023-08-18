@@ -1,11 +1,23 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavDropdown, Nav, Container, Navbar, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../slice/loginSlice";
+import { resetCart } from "../slice/cartSlice";
 
 const NavSection = () => {
   const user = useSelector((state) => state.auth);
   const [search, setSearch] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logout());
+    dispatch(resetCart());
+    navigate("/");
+  };
   return (
     <>
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -29,8 +41,8 @@ const NavSection = () => {
                   <NavDropdown title={user.name} id="basic-nav-dropdown">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
 
-                    <NavDropdown.Item>
-                      Logout{" "}
+                    <NavDropdown.Item onClick={handleLogout}>
+                      Logout
                       <i className="fa-solid fa-arrow-right-from-bracket"></i>
                     </NavDropdown.Item>
                   </NavDropdown>
