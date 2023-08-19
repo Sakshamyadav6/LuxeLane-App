@@ -14,8 +14,8 @@ const NavSection = () => {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    dispatch(logout());
-    dispatch(resetCart());
+    // dispatch(logout());
+    // dispatch(resetCart())
     navigate("/");
   };
   return (
