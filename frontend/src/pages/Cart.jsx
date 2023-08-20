@@ -49,7 +49,9 @@ const Cart = () => {
                     />
                   </Col>
                   <Col md={3}>
-                    <Link to={`/product/${item.id}`}>{item.name}</Link>
+                    <Link to={`/product/${item.id}`}>
+                      <h4>{item.productName}</h4>
+                    </Link>
                   </Col>
                   <Col md={2}>${item.price}</Col>
                   <Col md={2}>

@@ -71,6 +71,7 @@ const Home = () => {
       return {
         ...prev,
         results: searchedProds,
+
       };
     });
   };

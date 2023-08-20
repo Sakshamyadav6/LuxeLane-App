@@ -32,9 +32,9 @@ const cartSlice = createSlice({
       state.paymentMethod = data.payload;
     },
     resetCart: (state) => {
-      (state.cartItems = []),
-        (state.shippingAddress = {}),
-        (state.paymentMethod = "");
+      state.cartItems = [],
+        state.shippingAddress = {},
+        state.paymentMethod = "";
     },
   },
 });

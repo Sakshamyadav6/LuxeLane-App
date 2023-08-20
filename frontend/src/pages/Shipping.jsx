@@ -10,7 +10,7 @@ const Shipping = () => {
   const { shippingAddress } = useSelector((state) => state.cart);
   const [address, setAddress] = useState(shippingAddress.address);
   const [city, setCity] = useState(shippingAddress.city);
-  const [postalcode, setPostalCode] = useState(shippingAddress.postalcode);
+  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
   const [country, setCountry] = useState(shippingAddress.country);
 
   const navigate = useNavigate();
@@ -18,8 +18,9 @@ const Shipping = () => {
 
   const SubmitHandle = (e) => {
     e.preventDefault();
-    const data = { address, city, postalcode, country };
+    const data = { address, city, postalCode, country };
     dispatch(addShippingAddress(data));
+    console.log(data);
 
     navigate("/payment");
   };
@@ -56,9 +57,9 @@ const Shipping = () => {
             label="Enter Postal Code"
             fullWidth
             margin="normal"
-            id="postalcode"
-            name="postalcode"
-            value={postalcode}
+            id="postalCode"
+            name="postalCode"
+            value={postalCode}
             required
             onChange={(e) => setPostalCode(e.target.value)}
           />
