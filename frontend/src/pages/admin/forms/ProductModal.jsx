@@ -1,12 +1,20 @@
 import { InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
 import React from "react";
-import { Col, Container, Form, FormControl, Modal, Row } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  FormControl,
+  Modal,
+  Row,
+} from "react-bootstrap";
 
-const ProductModal = ({ openModal }) => {
+const ProductModal = ({ openModal, handleClose }) => {
   return (
     <>
-      <Modal show={openModal} centered size="lg">
-        <Modal.Header>
+      <Modal show={openModal} onHide={handleClose} centered size="lg">
+        <Modal.Header closeButton>
           <Modal.Title>Add Form</Modal.Title>
         </Modal.Header>
 
@@ -80,6 +88,9 @@ const ProductModal = ({ openModal }) => {
                   />
                 </Col>
               </Row>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
             </Container>
           </Form>
         </Modal.Body>

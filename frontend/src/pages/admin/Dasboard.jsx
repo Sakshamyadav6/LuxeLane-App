@@ -40,6 +40,10 @@ const Dasboard = () => {
     console.log("clicked");
     setOpenModal(true);
   };
+
+  const handleClose = () => {
+    setOpenModal(false);
+  };
   useEffect(() => {
     getProduct();
   }, []);
@@ -125,7 +129,7 @@ const Dasboard = () => {
               )}
             </tbody>
           </Table>
-          <ProductModal openModal={openModal} />
+          <ProductModal openModal={openModal} handleClose={handleClose} />
         </>
       ) : (
         <Loading />
