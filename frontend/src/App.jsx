@@ -10,6 +10,7 @@ import Shipping from "./pages/Shipping";
 import Payment from "./pages/Payment";
 import PlaceOrder from "./pages/PlaceOrder";
 import Order from "./pages/Order";
+import Dasboard from "./pages/admin/Dasboard";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/payment" element={<Payment />} />
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/order/:orderId" element={<Order />} />
+        <Route path="/admin/dasboard" element={<Dasboard />} />
       </Routes>
     </>
   );

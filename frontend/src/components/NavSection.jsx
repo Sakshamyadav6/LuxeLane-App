@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavDropdown, Nav, Container, Navbar, Button } from "react-bootstrap";
+import {
+  NavDropdown,
+  Nav,
+  Container,
+  Navbar,
+  Button,
+  NavLink,
+} from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../slice/loginSlice";
 import { resetCart } from "../slice/cartSlice";
@@ -34,18 +41,36 @@ const NavSection = () => {
 
               {user.isLoggedIn ? (
                 <>
-                  <Nav.Link>
-                    <i className="fa-solid fa-cart-shopping"></i>
-                  </Nav.Link>
+                  {user.role === "admin" ? (
+                    <>
+                      <NavDropdown title={user.name} id="basic-nav-dropdown">
+                        <NavDropdown.Item>Profile</NavDropdown.Item>
 
-                  <NavDropdown title={user.name} id="basic-nav-dropdown">
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                        <NavDropdown.Item onClick={handleLogout}>
+                          Logout
+                          <i className="fa-solid fa-arrow-right-from-bracket"></i>
+                        </NavDropdown.Item>
+                      </NavDropdown>
+                      <Nav.Link>
+                        <Link to={"/admin/dasboard"}>Admin</Link>
+                      </Nav.Link>
+                    </>
+                  ) : (
+                    <>
+                      <Nav.Link>
+                        <i className="fa-solid fa-cart-shopping"></i>
+                      </Nav.Link>
 
-                    <NavDropdown.Item onClick={handleLogout}>
-                      Logout
-                      <i className="fa-solid fa-arrow-right-from-bracket"></i>
-                    </NavDropdown.Item>
-                  </NavDropdown>
+                      <NavDropdown title={user.name} id="basic-nav-dropdown">
+                        <NavDropdown.Item>Profile</NavDropdown.Item>
+
+                        <NavDropdown.Item onClick={handleLogout}>
+                          Logout
+                          <i className="fa-solid fa-arrow-right-from-bracket"></i>
+                        </NavDropdown.Item>
+                      </NavDropdown>
+                    </>
+                  )}
                 </>
               ) : (
                 <Button variant="warning">
