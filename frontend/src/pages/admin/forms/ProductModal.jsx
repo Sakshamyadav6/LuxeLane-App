@@ -7,10 +7,18 @@ import {
   Form,
   FormControl,
   Modal,
+  ModalFooter,
   Row,
 } from "react-bootstrap";
+import { CircularProgress } from "@mui/material";
 
-const ProductModal = ({ openModal, handleClose }) => {
+const ProductModal = ({
+  openModal,
+  handleClose,
+  handleChange,
+  handleAdd,
+  loading,
+}) => {
   return (
     <>
       <Modal show={openModal} onHide={handleClose} centered size="lg">
@@ -33,7 +41,7 @@ const ProductModal = ({ openModal, handleClose }) => {
                     name="name"
                     label="Product Name"
                     id="name"
-                    //   onChange={}
+                    onChange={handleChange}
                   />
                 </Col>
                 <Col cs={12} md={6}>
@@ -46,33 +54,33 @@ const ProductModal = ({ openModal, handleClose }) => {
                     name="brand"
                     label="Product Brand"
                     id="brand"
-                    //   onChange={}
+                    onChange={handleChange}
                   />
                 </Col>
                 <Col cs={12} md={6}>
                   <TextField
                     variant="outlined"
-                    type="text"
+                    type="number"
                     margin="normal"
                     required
                     fullWidth
                     name="price"
                     label="Product Price"
                     id="price"
-                    //   onChange={}
+                    onChange={handleChange}
                   />
                 </Col>
                 <Col cs={12} md={6}>
                   <TextField
                     variant="outlined"
-                    type="text"
+                    type="number"
                     margin="normal"
                     required
                     fullWidth
                     name="countInStock"
                     label="Count In Stcok"
                     id="countInStock"
-                    //   onChange={}
+                    onChange={handleChange}
                   />
                 </Col>
                 <Col cs={12} md={6}>
@@ -84,16 +92,66 @@ const ProductModal = ({ openModal, handleClose }) => {
                     fullWidth
                     name="productImage"
                     id="file"
-                    // onChange={}
+                    onChange={handleChange}
+                  />
+                </Col>
+                <Col cs={12} md={6}>
+                  <TextField
+                    variant="outlined"
+                    type="category"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="category"
+                    label="Category"
+                    id="category"
+                    onChange={handleChange}
+                  />
+                </Col>
+                {/* <Col cs={12} md={6}>
+                  <FormControl variant="outlined">
+                    <InputLabel>Category</InputLabel>
+                    <Select label="Category" name="category">
+                      <MenuItem value="Shirt">T-Shirt</MenuItem>
+                      <MenuItem value="Pants">Pants</MenuItem>
+                      <MenuItem value="Vest">Vest</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Col> */}
+              </Row>
+              <Row>
+                <Col cs={12} md={12}>
+                  <TextField
+                    variant="outlined"
+                    type="text"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="description"
+                    label="Description"
+                    id="description"
+                    multiline
+                    minRows={"5"}
+                    onChange={handleChange}
                   />
                 </Col>
               </Row>
-              <Button variant="secondary" onClick={handleClose}>
-                Close
-              </Button>
             </Container>
           </Form>
         </Modal.Body>
+        <ModalFooter>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button
+            variant="warning"
+            className="ms-2"
+            onClick={handleAdd}
+            disabled={loading}
+          >
+            {loading ? <CircularProgress color="inherit" /> : <>Add Product</>}
+           </Button>
+        </ModalFooter>
       </Modal>
     </>
   );

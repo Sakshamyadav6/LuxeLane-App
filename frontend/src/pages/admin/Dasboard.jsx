@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { deleteData, getData } from "../../../services/axios.service";
+import { deleteData, getData, postData } from "../../../services/axios.service";
 import Loading from "../../components/Loading";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import ProductModal from "./forms/ProductModal";
+import { ToastContainer, toast } from "react-toastify";
 
 const Dasboard = () => {
-  const [name, setName] = useState("");
-  const [brand, setBrand] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [countInStock, setCountInStock] = useState("");
-  const [description, setDescription] = useState("");
-  const [productImage, setProductImage] = useState("");
+  const [product, setProduct] = useState({
+    name: "",
+    brand: "",
+    price: "",
+    category: "",
+    countInStock: "",
+    description: "",
+    productImage: "",
+  });
+  const [loading, setLoading] = useState(false);
   const { jwt } = useSelector((state) => state.auth);
 
   const [products, setProducts] = useState({});
@@ -43,6 +47,46 @@ const Dasboard = () => {
 
   const handleClose = () => {
     setOpenModal(false);
+  };
+  const handleChange = (e) => {
+    console.log(e.target.value, e.target.name);
+    if (e.target.name === "productImage") {
+      setProduct((prev) => {
+        return { ...prev, [e.target.name]: e.target.files[0] };
+      });
+    } else {
+      setProduct((prev) => {
+        return { ...prev, [e.target.name]: e.target.value };
+      });
+    }
+  };
+  const handleAdd = async (e) => {
+    e.preventDefault();
+    console.log(product);
+
+    const formData = new FormData();
+
+    formData.append("name", product.name);
+    formData.append("brand", product.brand);
+    formData.append("price", product.price);
+    formData.append("category", product.category);
+    formData.append("productImage", product.productImage);
+    formData.append("countInStock", product.countInStock);
+    formData.append("description", product.description);
+    setLoading(true);
+
+    const response = await postData("product", formData, jwt);
+
+    console.log(response);
+    if (response.status) {
+      setProducts((prev) => {
+        return { ...prev, results: [...prev.results, response.data] };
+      });
+      setOpenModal(false);
+      setLoading(false);
+
+      toast.success("Successfull Added Product");
+    }
   };
   useEffect(() => {
     getProduct();
@@ -108,13 +152,13 @@ const Dasboard = () => {
                       <td>{returnDate(product)}</td>
                       <td>
                         <Button className="btn btn-secondary me-3 mb-2">
-                          <i class="fa-solid fa-pen-to-square"></i> Edit
+                          <i className="fa-solid fa-pen-to-square"></i> Edit
                         </Button>
                         <Button
                           className="btn btn-danger  ms-1 mb-2"
                           onClick={(e) => deleteHandler(e, product._id)}
                         >
-                          <i class="fa-solid fa-trash"></i> Delete
+                          <i className="fa-solid fa-trash"></i> Delete
                         </Button>
                       </td>
                     </tr>
@@ -129,7 +173,14 @@ const Dasboard = () => {
               )}
             </tbody>
           </Table>
-          <ProductModal openModal={openModal} handleClose={handleClose} />
+          <ToastContainer />
+          <ProductModal
+            openModal={openModal}
+            handleClose={handleClose}
+            handleChange={handleChange}
+            handleAdd={handleAdd}
+            loading={loading}
+          />
         </>
       ) : (
         <Loading />
