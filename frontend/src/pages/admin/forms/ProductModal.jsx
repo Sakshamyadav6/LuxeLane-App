@@ -18,17 +18,32 @@ const ProductModal = ({
   handleChange,
   handleAdd,
   loading,
+  edit,
+  product,
+  handleEdit,
 }) => {
   return (
     <>
       <Modal show={openModal} onHide={handleClose} centered size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>Add Form</Modal.Title>
+          <Modal.Title>{edit ? "Update Form" : "Add Form"}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
           <Form>
             <Container>
+              {edit && (
+                <Row>
+                  <Col md={6}>
+                    <Form.Label>Product Image</Form.Label>
+                    <img
+                      src={product.productImage}
+                      alt={product.name}
+                      width={200}
+                    />
+                  </Col>
+                </Row>
+              )}
               <Row>
                 <Col cs={12} md={6}>
                   <TextField
@@ -41,6 +56,7 @@ const ProductModal = ({
                     name="name"
                     label="Product Name"
                     id="name"
+                    value={product.name}
                     onChange={handleChange}
                   />
                 </Col>
@@ -54,6 +70,7 @@ const ProductModal = ({
                     name="brand"
                     label="Product Brand"
                     id="brand"
+                    value={product.brand}
                     onChange={handleChange}
                   />
                 </Col>
@@ -67,6 +84,7 @@ const ProductModal = ({
                     name="price"
                     label="Product Price"
                     id="price"
+                    value={product.price}
                     onChange={handleChange}
                   />
                 </Col>
@@ -80,21 +98,25 @@ const ProductModal = ({
                     name="countInStock"
                     label="Count In Stcok"
                     id="countInStock"
+                    value={product.countInStock}
                     onChange={handleChange}
                   />
                 </Col>
-                <Col cs={12} md={6}>
-                  <TextField
-                    variant="outlined"
-                    type="file"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="productImage"
-                    id="file"
-                    onChange={handleChange}
-                  />
-                </Col>
+                {!edit && (
+                  <Col cs={12} md={6}>
+                    <TextField
+                      variant="outlined"
+                      type="file"
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="productImage"
+                      id="file"
+                      onChange={handleChange}
+                    />
+                  </Col>
+                )}
+
                 <Col cs={12} md={6}>
                   <TextField
                     variant="outlined"
@@ -105,6 +127,7 @@ const ProductModal = ({
                     name="category"
                     label="Category"
                     id="category"
+                    value={product.category}
                     onChange={handleChange}
                   />
                 </Col>
@@ -132,6 +155,7 @@ const ProductModal = ({
                     id="description"
                     multiline
                     minRows={"5"}
+                    value={product.description}
                     onChange={handleChange}
                   />
                 </Col>
@@ -146,11 +170,17 @@ const ProductModal = ({
           <Button
             variant="warning"
             className="ms-2"
-            onClick={handleAdd}
+            onClick={edit ? handleEdit : handleAdd}
             disabled={loading}
           >
-            {loading ? <CircularProgress color="inherit" /> : <>Add Product</>}
-           </Button>
+            {loading ? (
+              <CircularProgress color="inherit" />
+            ) : edit ? (
+              "Edit Product"
+            ) : (
+              "Add Product"
+            )}
+          </Button>
         </ModalFooter>
       </Modal>
     </>

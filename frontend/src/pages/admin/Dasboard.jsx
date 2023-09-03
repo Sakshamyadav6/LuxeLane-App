@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { deleteData, getData, postData } from "../../../services/axios.service";
+import {
+  deleteData,
+  getData,
+  postData,
+  updateData,
+} from "../../../services/axios.service";
 import Loading from "../../components/Loading";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
@@ -17,9 +22,13 @@ const Dasboard = () => {
     productImage: "",
   });
   const [loading, setLoading] = useState(false);
+
+  const [edit, setEdit] = useState(false);
   const { jwt } = useSelector((state) => state.auth);
 
   const [products, setProducts] = useState({});
+
+  const [editId, setEditId] = useState("");
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -37,11 +46,13 @@ const Dasboard = () => {
     setProducts((prev) => {
       return { ...prev, count: filteredProds.length, results: filteredProds };
     });
+    toast.success("Product Deleted Successfully");
   };
 
   const addProductHandler = (e) => {
     e.preventDefault();
     console.log("clicked");
+    setEdit(false);
     setOpenModal(true);
   };
 
@@ -85,8 +96,39 @@ const Dasboard = () => {
       setOpenModal(false);
       setLoading(false);
 
-      toast.success("Successfull Added Product");
+      toast.success("Successfully Added Product");
     }
+  };
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    delete product["id"];
+    delete product["_id"];
+    delete product["createdAt"];
+    setLoading(true);
+
+    const response = await updateData(`product/${editId}`, product, jwt);
+
+    if (response.status) {
+      setOpenModal(false);
+      setLoading(false);
+      toast.success("Successfully Edited Product");
+      const updateProd = products.results.map((prod) => {
+        return prod.id === editId ? response.data : prod;
+      });
+      setProducts((prev) => {
+        return { ...prev, results: updateProd };
+      });
+    } else {
+      toast.error("Can't Edit Product");
+    }
+  };
+  const editHandler = (e, product) => {
+    e.preventDefault();
+    setEdit(true);
+    setOpenModal(true);
+    setProduct(product);
+    setEditId(product.id);
+    console.log(editId);
   };
   useEffect(() => {
     getProduct();
@@ -121,12 +163,13 @@ const Dasboard = () => {
           </Row>
           <Table striped bordered hover responsive className="table-sm">
             <thead>
-              <tr>
+              <tr className="text-center">
                 <th>Image</th>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Category</th>
                 <th>Brand</th>
+                <th>Stock</th>
                 <th>Created At</th>
                 <th>Action</th>
               </tr>
@@ -149,9 +192,13 @@ const Dasboard = () => {
                       <td>{product.price}</td>
                       <td>{product.category}</td>
                       <td>{product.brand}</td>
+                      <td>{product.countInStock}</td>
                       <td>{returnDate(product)}</td>
                       <td>
-                        <Button className="btn btn-secondary me-3 mb-2">
+                        <Button
+                          className="btn btn-secondary me-3 mb-2"
+                          onClick={(e) => editHandler(e, product)}
+                        >
                           <i className="fa-solid fa-pen-to-square"></i> Edit
                         </Button>
                         <Button
@@ -180,6 +227,9 @@ const Dasboard = () => {
             handleChange={handleChange}
             handleAdd={handleAdd}
             loading={loading}
+            edit={edit}
+            product={product}
+            handleEdit={handleEdit}
           />
         </>
       ) : (
