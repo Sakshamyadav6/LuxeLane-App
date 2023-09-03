@@ -12,7 +12,7 @@ export const getData = async (url) => {
   }
 };
 
-export const postData = async (url, ata, token) => {
+export const postData = async (url, data, token) => {
   try {
     const response = await axios.post(
       `${import.meta.env.VITE_SERVER_URL}/${url}`,

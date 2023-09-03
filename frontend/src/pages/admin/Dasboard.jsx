@@ -35,7 +35,6 @@ const Dasboard = () => {
   const getProduct = async () => {
     const response = await getData("product");
     setProducts(response.data);
-    console.log(response.data);
   };
   const deleteHandler = async (e, id) => {
     e.preventDefault();
@@ -51,7 +50,6 @@ const Dasboard = () => {
 
   const addProductHandler = (e) => {
     e.preventDefault();
-    console.log("clicked");
     setEdit(false);
     setOpenModal(true);
   };
@@ -60,7 +58,6 @@ const Dasboard = () => {
     setOpenModal(false);
   };
   const handleChange = (e) => {
-    console.log(e.target.value, e.target.name);
     if (e.target.name === "productImage") {
       setProduct((prev) => {
         return { ...prev, [e.target.name]: e.target.files[0] };
@@ -73,7 +70,6 @@ const Dasboard = () => {
   };
   const handleAdd = async (e) => {
     e.preventDefault();
-    console.log(product);
 
     const formData = new FormData();
 
@@ -88,7 +84,6 @@ const Dasboard = () => {
 
     const response = await postData("product", formData, jwt);
 
-    console.log(response);
     if (response.status) {
       setProducts((prev) => {
         return { ...prev, results: [...prev.results, response.data] };
@@ -128,7 +123,6 @@ const Dasboard = () => {
     setOpenModal(true);
     setProduct(product);
     setEditId(product.id);
-    console.log(editId);
   };
   useEffect(() => {
     getProduct();

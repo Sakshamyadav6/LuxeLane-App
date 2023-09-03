@@ -31,10 +31,8 @@ const cartSlice = createSlice({
     addpaymentMethod: (state, data) => {
       state.paymentMethod = data.payload;
     },
-    resetCart: (state) => {
-      state.cartItems = [],
-        state.shippingAddress = {},
-        state.paymentMethod = "";
+    resetOrder: (state) => {
+      state.order = {};
     },
   },
 });

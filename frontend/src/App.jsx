@@ -11,6 +11,8 @@ import Payment from "./pages/Payment";
 import PlaceOrder from "./pages/PlaceOrder";
 import Order from "./pages/Order";
 import Dasboard from "./pages/admin/Dasboard";
+import AdminRoute from "../routes/AdminRoute";
+import SecureRoute from "../routes/SecureRoute";
 
 const App = () => {
   return (
@@ -20,13 +22,17 @@ const App = () => {
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
         <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/shipping" element={<Shipping />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/place-order" element={<PlaceOrder />} />
-        <Route path="/order/:orderId" element={<Order />} />
-        <Route path="/admin/dasboard" element={<Dasboard />} />
+        <Route path="/" element={<SecureRoute />}>
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/place-order" element={<PlaceOrder />} />
+          <Route path="/order/:orderId" element={<Order />} />
+          <Route path="/" element={<AdminRoute />}>
+            <Route path="/admin/dasboard" element={<Dasboard />} />
+          </Route>
+        </Route>
       </Routes>
     </>
   );
