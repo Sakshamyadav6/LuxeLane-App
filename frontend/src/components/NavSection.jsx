@@ -58,7 +58,9 @@ const NavSection = () => {
                   ) : (
                     <>
                       <Nav.Link>
-                        <i className="fa-solid fa-cart-shopping"></i>
+                        <Link to="/cart">
+                          <i className="fa-solid fa-cart-shopping"></i>
+                        </Link>
                       </Nav.Link>
 
                       <NavDropdown title={user.name} id="basic-nav-dropdown">

@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import { Col, Image, ListGroup, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-// import { removeFromCart } from "../slice/productSlice";
+import { removeFromCart } from "../slice/cartSlice";
 
 const useStyles = makeStyles((theme) => ({
   typography: {

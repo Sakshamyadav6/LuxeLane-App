@@ -24,6 +24,11 @@ const cartSlice = createSlice({
         state.cartItems = [...state.cartItems, item];
       }
     },
+    removeFromCart: (state, data) => {
+      state.cartItems = state.cartItems.filter((cartItem) => {
+        return cartItem.productId !== data.payload;
+      });
+    },
     addShippingAddress: (state, data) => {
       console.log(data);
       state.shippingAddress = data.payload;
@@ -38,5 +43,10 @@ const cartSlice = createSlice({
 });
 
 export default cartSlice.reducer;
-export const { addToCart, addShippingAddress, addpaymentMethod, resetCart } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  addShippingAddress,
+  addpaymentMethod,
+  resetCart,
+  removeFromCart,
+} = cartSlice.actions;
