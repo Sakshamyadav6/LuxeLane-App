@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../slice/loginSlice";
 
 const Login = () => {
-  const [email, setEmail] = useState(""); 
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -51,7 +51,7 @@ const Login = () => {
           style={{ marginTop: "90px" }}
         >
           <Col xs={12} md={6}>
-            <h1 style={{textAlign:'center'}}>Sign In</h1>
+            <h1 style={{ textAlign: "center" }}>Sign In</h1>
             <Form onSubmit={LoginHandle}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>

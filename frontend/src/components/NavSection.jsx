@@ -10,19 +10,20 @@ import {
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../slice/loginSlice";
+import { resetOrder } from "../slice/orderSlice";
 import { resetCart } from "../slice/cartSlice";
 
 const NavSection = () => {
   const user = useSelector((state) => state.auth);
-  const [search, setSearch] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = (e) => {
     e.preventDefault();
-    // dispatch(logout());
-    // dispatch(resetCart())
+    dispatch(logout());
+    dispatch(resetOrder());
+    dispatch(resetCart());
     navigate("/");
   };
   return (

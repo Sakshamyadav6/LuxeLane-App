@@ -29,6 +29,7 @@ const product = ({ product }) => {
   const navigate = useNavigate();
 
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const { role } = useSelector((state) => state.auth);
 
   const handleAddToCart = (quantity) => {
     if (isFavorited) {
@@ -84,14 +85,18 @@ const product = ({ product }) => {
                 borderRadius={{ base: "md", md: "xl" }}
               />
             </AspectRatio>
-            <FavouriteButton
-              position="absolute"
-              top="4"
-              right="4"
-              aria-label={`Add ${product.name} to your favourites`}
-              isFavorited={isFavorited}
-              onClick={handleFavourite}
-            />
+            {role === "user" ? (
+              <FavouriteButton
+                position="absolute"
+                top="4"
+                right="4"
+                aria-label={`Add ${product.name} to your favourites`}
+                isFavorited={isFavorited}
+                onClick={handleFavourite}
+              />
+            ) : (
+              <></>
+            )}
           </Box>
           <Stack>
             <Stack spacing="1">
