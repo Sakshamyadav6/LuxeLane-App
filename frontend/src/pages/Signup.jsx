@@ -47,10 +47,7 @@ const Signup = () => {
   return (
     <>
       <Container>
-        <Row
-          className="justify-content-md-center"
-          
-        >
+        <Row className="justify-content-md-center">
           <Col xs={12} md={6}>
             <h1 style={{ textAlign: "center" }}>Sign Up</h1>
             <Form onSubmit={SignupHandle}>
@@ -107,7 +104,7 @@ const Signup = () => {
                 variant="warning"
                 type="submit"
                 disabled={loading}
-                style={{ width: "550px" }}
+                style={{ width: "45vw" }}
               >
                 {loading ? <CircularProgress color="inherit" /> : <>Sign up</>}
               </Button>

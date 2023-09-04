@@ -84,7 +84,7 @@ const Login = () => {
                 variant="warning"
                 type="submit"
                 disabled={loading}
-                style={{ width: "550px" }}
+                style={{ width: "45vw" }}
               >
                 {loading ? <CircularProgress color="inherit" /> : <>Sign in</>}
               </Button>

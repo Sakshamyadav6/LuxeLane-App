@@ -60,7 +60,7 @@ const product = ({ product }) => {
     }
     setIsFavorited(!isFavorited);
   };
-  const payloadForCartItem = (data, qty) => {
+  const payloadForCartItem = () => {
     return {
       productId: product._id,
       productName: product.name,
@@ -118,12 +118,12 @@ const product = ({ product }) => {
           </Stack>
           <Stack align="center">
             <Button
-              colorScheme={isFavorited ? "purple" : "yellow"}
+              colorScheme={isFavorited ? "red" : "yellow"}
               width="full"
               disabled={isFavorited}
               onClick={() => handleAddToCart(qty)}
             >
-              {isFavorited ? "Already in Cart" : "Add to Cart"}{" "}
+              {isFavorited ? "Already in Cart" : "Add to Cart"}
             </Button>
             <Link
               to={`/product/${product.id}`}

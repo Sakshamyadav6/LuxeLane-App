@@ -36,7 +36,7 @@ const Cart = () => {
       <Col md={8}>
         <h1>Shopping Cart</h1>
         {cartItems.length > 0 ? (
-          <ListGroup variant="flush">
+          <ListGroup>
             {cartItems.map((item) => (
               <ListGroup.Item key={item.id}>
                 <Row>

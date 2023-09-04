@@ -9,9 +9,13 @@ import Loading from "../../components/Loading";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import ProductModal from "./forms/ProductModal";
+import ReactPaginate from "react-paginate";
+
 import { ToastContainer, toast } from "react-toastify";
 
 const Dasboard = () => {
+  const itemsPerPage = 6;
+
   const [product, setProduct] = useState({
     name: "",
     brand: "",
@@ -26,15 +30,47 @@ const Dasboard = () => {
   const [edit, setEdit] = useState(false);
   const { jwt } = useSelector((state) => state.auth);
 
+  const [itemOffset, setItemOffset] = useState(0);
+
   const [products, setProducts] = useState({});
+  const [originalProduct, setOriginalProducts] = useState({});
 
   const [editId, setEditId] = useState("");
 
   const [openModal, setOpenModal] = useState(false);
 
+  const [pageCount, setPageCount] = useState(0);
+
+  let endOffset;
+  let currentItems;
+
   const getProduct = async () => {
     const response = await getData("product");
     setProducts(response.data);
+    paginate(response.data);
+    setOriginalProducts(response.data);
+  };
+
+  function paginate(items) {
+    endOffset = itemOffset + itemsPerPage;
+
+    currentItems = items.results.slice(itemOffset, endOffset);
+
+    let count = Math.ceil(items.results.length / itemsPerPage);
+
+    setPageCount(count);
+
+    setProducts((prev) => {
+      return { ...prev, count: currentItems.length, results: currentItems };
+    });
+  }
+
+  const handlePageClick = (event) => {
+    const newOffset =
+      (event.selected * itemsPerPage) % originalProduct.results.length;
+
+    console.log("newOffset", newOffset);
+    setItemOffset(newOffset);
   };
   const deleteHandler = async (e, id) => {
     e.preventDefault();
@@ -47,6 +83,18 @@ const Dasboard = () => {
     });
     toast.success("Product Deleted Successfully");
   };
+  useEffect(() => {
+    if (products.status) {
+      const endOffset = itemOffset + itemsPerPage;
+
+      let currItems = originalProduct.results.slice(itemOffset, endOffset);
+
+      setProducts((prev) => {
+        return { ...prev, results: currItems, count: currItems.length };
+      });
+      setPageCount(Math.ceil(originalProduct.results.length / itemsPerPage));
+    }
+  }, [itemOffset, itemsPerPage]);
 
   const addProductHandler = (e) => {
     e.preventDefault();
@@ -224,6 +272,26 @@ const Dasboard = () => {
             edit={edit}
             product={product}
             handleEdit={handleEdit}
+          />
+          <ReactPaginate
+            nextLabel="next >"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={3}
+            marginPagesDisplayed={2}
+            pageCount={pageCount}
+            previousLabel="< previous"
+            pageClassName="page-item"
+            pageLinkClassName="page-link"
+            previousClassName="page-item"
+            previousLinkClassName="page-link"
+            nextClassName="page-item"
+            nextLinkClassName="page-link"
+            breakLabel="..."
+            breakClassName="page-item"
+            breakLinkClassName="page-link"
+            containerClassName="pagination"
+            activeClassName="active"
+            renderOnZeroPageCount={null}
           />
         </>
       ) : (
