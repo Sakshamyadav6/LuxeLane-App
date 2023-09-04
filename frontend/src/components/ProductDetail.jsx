@@ -29,9 +29,7 @@ const ProductDetals = () => {
   }, []);
 
   const handleAddToCart = (quantity) => {
-    
-     const data = payloadForCartItem(product.data, quantity);
-  console.log(data)
+    const data = payloadForCartItem(product.data, quantity);
     dispatch(addToCart(data));
 
     navigate("/cart");

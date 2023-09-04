@@ -30,12 +30,15 @@ const product = ({ product }) => {
 
   const cartItems = useSelector((state) => state.cart.cartItems);
   const { role } = useSelector((state) => state.auth);
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   const handleAddToCart = (quantity) => {
-    if (isFavorited) {
+    if (isLoggedIn === false) {
+      navigate("/");
+    } else if (isFavorited) {
       navigate("/cart");
       toast.warning("Product Already in Cart");
-    } else {
+    } else if (isLoggedIn == true) {
       const data = payloadForCartItem(product.data, quantity);
       dispatch(addToCart(data));
       console.log(data);
@@ -50,16 +53,21 @@ const product = ({ product }) => {
   }, [cartItems, product._id]);
 
   const handleFavourite = (quantity) => {
-    if (isFavorited) {
-      dispatch(removeFromCart(product._id));
-      toast.success("Product Removed From Cart");
+    if (!isLoggedIn) {
+      navigate("/");
     } else {
-      const data = payloadForCartItem(product.data, quantity);
-      dispatch(addToCart(data));
-      setIsFavorited(true);
-      toast.success("Product Added To Cart");
+      if (isFavorited) {
+        dispatch(removeFromCart(product._id));
+        toast.success("Product Removed From Cart");
+      } else {
+        const data = payloadForCartItem(product.data, quantity);
+        dispatch(addToCart(data));
+        setIsFavorited(true);
+        toast.success("Product Added To Cart");
+      }
+
+      setIsFavorited(!isFavorited);
     }
-    setIsFavorited(!isFavorited);
   };
   const payloadForCartItem = () => {
     return {
