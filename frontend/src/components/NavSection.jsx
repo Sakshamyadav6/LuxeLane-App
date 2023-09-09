@@ -45,8 +45,6 @@ const NavSection = () => {
                   {user.role === "admin" ? (
                     <>
                       <NavDropdown title={user.name} id="basic-nav-dropdown">
-                        <NavDropdown.Item>Profile</NavDropdown.Item>
-
                         <NavDropdown.Item onClick={handleLogout}>
                           Logout
                           <i className="fa-solid fa-arrow-right-from-bracket"></i>
@@ -65,10 +63,13 @@ const NavSection = () => {
                       </Nav.Link>
 
                       <NavDropdown title={user.name} id="basic-nav-dropdown">
-                        <NavDropdown.Item>Profile</NavDropdown.Item>
+                        <NavDropdown.Item>
+                          <Link to={"/profile"}>Profile</Link>{" "}
+                          <i className="fa-solid fa-user"></i>
+                        </NavDropdown.Item>
 
                         <NavDropdown.Item onClick={handleLogout}>
-                          Logout
+                          Logout {""}
                           <i className="fa-solid fa-arrow-right-from-bracket"></i>
                         </NavDropdown.Item>
                       </NavDropdown>
