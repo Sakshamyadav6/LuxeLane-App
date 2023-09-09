@@ -1,6 +1,4 @@
-
-
-## Features and Functionalities 😃
+# Features and Functionalities 😃
 
 **User features**
 

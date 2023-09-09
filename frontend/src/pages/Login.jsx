@@ -43,6 +43,12 @@ const Login = () => {
       toast.error(error.response.data.error);
     }
   };
+
+  const handleData = (e) => {
+    e.preventDefault();
+    setEmail("saksham1@gmail.com");
+    setPassword("12345678");
+  };
   return (
     <>
       <Container>
@@ -60,6 +66,7 @@ const Login = () => {
                   placeholder="abc@gmail.com"
                   required
                   autoFocus
+                  value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
@@ -71,6 +78,7 @@ const Login = () => {
                   type="password"
                   placeholder="*************"
                   required
+                  value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
@@ -93,6 +101,13 @@ const Login = () => {
               <Link to={"/signup"}>Register</Link>
               <Form.Text style={{ float: "right" }}>Forgot Password</Form.Text>
             </Form>
+            <Button
+              className="btn btn-info"
+              style={{ float: "right", marginRight: "9vw" }}
+              onClick={handleData}
+            >
+              For E-mail and Password
+            </Button>
           </Col>
         </Row>
       </Container>
@@ -102,4 +117,3 @@ const Login = () => {
 };
 
 export default Login;
-// MONGO_URI =mongodb+srv://admin:admin@cluster0.msxjsdv.mongodb.net/?retryWrites=true&w=majority
