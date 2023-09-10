@@ -49,6 +49,7 @@ const Login = () => {
     setEmail("guest@gmail.com");
     setPassword("12345678");
   };
+
   return (
     <>
       <Container>
@@ -88,11 +89,14 @@ const Login = () => {
                 className="mb-3"
                 controlId="formBasicCheckbox"
               ></Form.Group>
+
               <Button
                 variant="warning"
                 type="submit"
                 disabled={loading}
-                style={{ width: "100vw" }}
+                style={{
+                  width: "100%",
+                }}
               >
                 {loading ? <CircularProgress color="inherit" /> : <>Sign in</>}
               </Button>
@@ -103,10 +107,10 @@ const Login = () => {
             </Form>
             <Button
               className="btn btn-info"
-              style={{ float: "right", marginRight: "9vw" }}
+              style={{ width: "100%" }}
               onClick={handleData}
             >
-              For E-mail and Password
+             Dummy E-mail and Password
             </Button>
           </Col>
         </Row>
