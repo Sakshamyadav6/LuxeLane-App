@@ -46,7 +46,7 @@ const Login = () => {
 
   const handleData = (e) => {
     e.preventDefault();
-    setEmail("saksham1@gmail.com");
+    setEmail("guest@gmail.com");
     setPassword("12345678");
   };
   return (
